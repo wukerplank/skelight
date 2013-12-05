@@ -13,6 +13,31 @@
  *= require_tree .
  */
 
+
+// kuler colors: https://kuler.adobe.com/colour-sample-01-color-theme-3277324/
+$nav-height: 50px;
+$app-name-height: 20px;
+$app-name-padding: ($nav-height - $app-name-height)/2;
+
+#nav {
+  height: $nav-height;
+  background-color: #AB102F;
+  
+  h1 {
+    height: $nav-height - $app-name-padding;
+    width: 200px;
+    float: left;
+    background-color: #3B241D;
+    color: #FFFFF0;
+    
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: $app-name-height;
+    padding-top: $app-name-padding;
+  }
+}
+
 #map {
   height: 400px;
 }

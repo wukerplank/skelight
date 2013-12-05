@@ -10,7 +10,7 @@
   // });
   
   var resizeMap = function() {
-    var targetHeight = $(window).height();
+    var targetHeight = $(window).height() - $('#nav').height();
     
     map.height(targetHeight);
   }
