@@ -1,1 +1,36 @@
-<h1>Welcome</h1>
+<div id="map"></div>
+
+<script type="text/javascript" charset="utf-8">
+  var gmap;
+  var map;
+  
+  // var marker = new google.maps.Marker({
+  //   map: map,
+  //   position: results[0].geometry.location
+  // });
+  
+  var resizeMap = function() {
+    var targetHeight = $(window).height();
+    
+    map.height(targetHeight);
+  }
+  
+  // Initialize everything ---------------------------------------------
+  $(function(){
+    map = $('#map');
+    
+    console.log(map.height());
+    resizeMap();
+    console.log(map.height());
+    
+    gmap = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: new google.maps.LatLng(-34.397, 150.644)
+    });
+  });
+  
+  // Handle resizes ----------------------------------------------------
+  $(window).resize(function(){
+    resizeMap();
+  });
+</script>
