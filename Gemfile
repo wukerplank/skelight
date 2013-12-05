@@ -6,16 +6,13 @@ gem 'rails', '4.0.1'
 
 gem 'better_errors'
 gem 'binding_of_caller'
+gem 'figaro'
 gem 'mongo_mapper'
 gem 'pg'
 gem 'pry'
+gem 'puma'
 gem 'quiet_assets'
-gem 'thin'
 gem 'twitter'
-
-group :production do
-  gem 'unicorn'
-end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
