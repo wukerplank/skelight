@@ -6,6 +6,7 @@ gem 'rails', '4.0.1'
 
 gem 'better_errors'
 gem 'binding_of_caller'
+gem 'bson_ext'
 gem 'figaro'
 gem 'mongo_mapper'
 gem 'pg'
