@@ -4,15 +4,28 @@
   var gmap;
   var map;
   
-  // var marker = new google.maps.Marker({
-  //   map: map,
-  //   position: results[0].geometry.location
-  // });
-  
   var resizeMap = function() {
     var targetHeight = $(window).height() - $('#nav').height();
     
     map.height(targetHeight);
+  }
+  
+  var plotTweet = function(raw_tweet) {
+    var tweet = JSON.parse(raw_tweet);
+    var position;
+    if (tweet.place) {
+      var coords = tweet.place.bounding_box.coordinates[0][0];
+      position = new google.maps.LatLng(coords[1], coords[0]);
+    }
+    else if (tweet.geo) {
+      var coords = tweet.geo.coordinates;
+      position = new google.maps.LatLng(coords[0], coords[1]);
+    }
+    
+    var marker = new google.maps.Marker({
+      map: gmap,
+      position: position
+    });
   }
   
   // Initialize everything ---------------------------------------------
@@ -24,13 +37,30 @@
     console.log(map.height());
     
     gmap = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
+      zoom: 2,
       center: new google.maps.LatLng(-34.397, 150.644)
     });
+    
+    setTimeout(function() {
+      var source = new EventSource('/twitter/stream');
+      source.addEventListener('new_tweet', function(e) {
+        plotTweet(e.data);
+      });
+    }, 1);
   });
   
   // Handle resizes ----------------------------------------------------
   $(window).resize(function(){
     resizeMap();
   });
+  
+  // Handle the stream from the server ---------------------------------
+  var periodicXHReqCheck = function () {
+     var fullResponse = util.trim(xhReq.responseText);
+     var responsePatt = /^(.*@END@)*(.*)@END@.*$/;
+     if (fullResponse.match(responsePatt)) { // At least one full response so far
+       var recentTweet = fullResponse.replace(responsePatt, "$2");
+       console.log(recentTweet);
+     }
+   }
 </script>
