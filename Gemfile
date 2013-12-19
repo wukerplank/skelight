@@ -2,14 +2,13 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'rails', '4.0.1'
+gem 'rails', '4.0.2'
 
 gem 'better_errors'
 gem 'binding_of_caller'
 gem 'bson_ext'
 gem 'figaro'
-gem 'mongo_mapper'
-gem 'pg'
+gem 'mongo_mapper', '~> 0.13.0.beta2'
 gem 'pry'
 gem 'puma'
 gem 'quiet_assets'
