@@ -61,6 +61,12 @@ body {
       
     }
   }
+  
+  #stats {
+    float: right;
+    padding-top: $nav-link-height;
+    padding-right: 20px;
+  }
 }
 
 #map {
