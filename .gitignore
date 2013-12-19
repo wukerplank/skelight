@@ -7,7 +7,6 @@
 # Ignore bundler config.
 /.bundle
 
-/config/mongo.yml
 mongo/
 
 # Ignore the default SQLite database.
