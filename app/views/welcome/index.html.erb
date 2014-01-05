@@ -4,55 +4,19 @@
   var gmap;
   var map;
   
-  var resizeMap = function() {
-    var targetHeight = $(window).height() - $('#nav').height();
-    
-    map.height(targetHeight);
-  }
-  
-  var plotTweet = function(raw_tweet) {
-    var tweet = JSON.parse(raw_tweet);
-    var position;
-    if (tweet.place) {
-      var coords = tweet.place.bounding_box.coordinates[0][0];
-      position = new google.maps.LatLng(coords[1], coords[0]);
-    }
-    else if (tweet.geo) {
-      var coords = tweet.geo.coordinates;
-      position = new google.maps.LatLng(coords[0], coords[1]);
-    }
-    
-    var marker = new google.maps.Marker({
-      map: gmap,
-      position: position
-    });
-  }
-  
   // Initialize everything ---------------------------------------------
   $(function(){
     map = $('#map');
-    
-    console.log(map.height());
-    resizeMap();
-    console.log(map.height());
     
     gmap = new google.maps.Map(document.getElementById('map'), {
       zoom: 2,
       center: new google.maps.LatLng(-34.397, 150.644)
     });
     
-    setTimeout(function() {
-      var source = new EventSource('/twitter/stream');
-      source.addEventListener('new_tweet', function(e) {
-        plotTweet(e.data);
-      });
-    }, 1);
+    fetchTweets();
   });
   
-  // Handle resizes ----------------------------------------------------
-  $(window).resize(function(){
-    resizeMap();
-  });
+  
   
   // Handle the stream from the server ---------------------------------
   var periodicXHReqCheck = function () {

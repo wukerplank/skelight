@@ -14,3 +14,63 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+var map;
+
+var resizeMap = function() {
+  var targetHeight = $(window).height() - $('#nav').height();
+  
+  map.height(targetHeight);
+}
+
+$(function(){
+  map = $('#map');
+  
+  resizeMap();
+  
+  $(window).resize(function(){
+    resizeMap();
+  });
+});
+
+//------------------------------------------------------------------------------------------------
+
+var plotTweet = function(tweet) {
+  var position;
+  if (tweet.place) {
+    var coords = tweet.place.bounding_box.coordinates[0][0];
+    position = new google.maps.LatLng(coords[1], coords[0]);
+  }
+  else if (tweet.geo) {
+    var coords = tweet.geo.coordinates;
+    position = new google.maps.LatLng(coords[0], coords[1]);
+  }
+  
+  var marker = new google.maps.Marker({
+    map: gmap,
+    position: position
+  });
+}
+
+var fetchTweets = function(after, limit) {
+  if (typeof after == "undefined"){
+    after = null;
+  }
+  
+  if (typeof limit == "undefined"){
+    limit = 100;
+  }
+  
+  $.ajax("/twitter", {
+    method: 'get',
+    data: {after: after, limit: limit},
+    success: function(data) {
+      data.forEach(function(e){
+        console.log(e.raw_tweet);
+        plotTweet(e.raw_tweet);
+      });
+    }
+  });
+}
+
+//------------------------------------------------------------------------------------------------
