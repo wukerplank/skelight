@@ -23,7 +23,7 @@ var pushMarker = function(position, score) {
     marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
   }
   else {
-    marker.setIcon('/assets/grey-dot.png');
+    marker.setIcon(grey_marker);
   }
   
   // heatMapData.push({location: position, weight: score});
