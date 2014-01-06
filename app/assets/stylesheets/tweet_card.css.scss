@@ -18,3 +18,16 @@
     }
   }
 }
+.tweet_card.happiness_neutral, .tweet_card.happiness_good, .tweet_card.happiness_bad {
+  border-left-width: 5px;
+  border-left-style: solid;
+}
+.tweet_card.happiness_neutral {
+  border-left-color: #bfbfbf;
+}
+.tweet_card.happiness_good {
+  border-left-color: #24e048;
+}
+.tweet_card.happiness_bad {
+  border-left-color: #fa645a;
+}

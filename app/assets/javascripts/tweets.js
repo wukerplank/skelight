@@ -49,8 +49,19 @@ var drawMarker = function(full_tweet) {
 
 var drawCard = function(full_tweet) {
   var tweet = full_tweet.raw_tweet;
+  var happyClass = "happiness_";
   
-  var tweet_card = $('<div/>').addClass('tweet_card')
+  if (full_tweet.score < 0) {
+    happyClass += 'bad';
+  }
+  else if (full_tweet.score > 0) {
+    happyClass += 'good';
+  }
+  else {
+    happyClass += 'neutral';
+  }
+  
+  var tweet_card = $('<div/>').addClass('tweet_card '+happyClass)
     .append($('<p />').html(tweet.text))
     .append($('<span />')
       .append($('<img />').attr('src', tweet.user.profile_image_url))
