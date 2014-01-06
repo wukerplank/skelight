@@ -68,7 +68,19 @@ body {
     padding-right: 20px;
   }
 }
-
+#wrapper {
+  position: relative;
+}
+#stream {
+  position: absolute;
+  top: 20px;
+  left: 90px;
+  bottom: 20px;
+  width: 300px;
+  z-index: 9999999;
+  background-color: rgba(100, 100, 100, 0.8);
+  overflow: hidden;
+}
 #map {
   height: 400px;
 }

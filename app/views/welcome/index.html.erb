@@ -1,4 +1,8 @@
-<div id="map"></div>
+<div id="wrapper">
+  <div id="stream"></div>
+
+  <div id="map"></div>
+</div>
 
 <script type="text/javascript" charset="utf-8">
   var gmap;
@@ -10,7 +14,7 @@
     
     gmap = new google.maps.Map(document.getElementById('map'), {
       zoom: 2,
-      center: new google.maps.LatLng(-34.397, 150.644)
+      center: new google.maps.LatLng(56.10938103690236, 315.5268125)
     });
     
     fetchTweets();
