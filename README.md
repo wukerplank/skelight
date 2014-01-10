@@ -1,8 +1,31 @@
 Skelight
 ========
 
-Count the tweets
-----------------
+This task consisted of three parts:
+
+1. Crawling
+2. Mongo
+3. Visualization
+
+
+1. Crawling
+-----------
+
+First you need to configure the access to your mongo database. Have a look at `config/mongo.yml` and change the settings accordingly.
+
+To get access to the Twitter API you need to register at https://developer.twitter.com. After that create a application.yml file by copying the example: `cp config/application.yml.example config/application.yml` and fill in your API credentials.
+
+This app uses the Twitter Firehose API. To start the client you can run `bundle exec rake twitter:crawler:run`. This will push the tweets directly into your mongo database.
+
+The code for the crawler is located in [twitter_firehose.rb](https://github.com/wukerplank/skelight/blob/master/app/stream_client/twitter_firehose.rb) and  [twitter_crawler.rb](https://github.com/wukerplank/skelight/blob/master/app/stream_client/twitter_crawler.rb).
+
+2. mapreduce
+------------
+
+These are the three mapreduce jobs we had to perfrom. They can be copy/pasted to the mongo console.
+
+2a. Count the tweets
+--------------------
 
     use skelight_development;
     
@@ -35,8 +58,8 @@ Count the tweets
       }
     )
 
-Normalize the weets
---------------------
+2b. Normalize the weets
+-----------------------
 
     use skelight_development;
     
@@ -85,8 +108,8 @@ Normalize the weets
       }
     )
 
-Calculating the sentiment of the tweets
----------------------------------------
+2c. Calculating the sentiment of the tweets
+-------------------------------------------
 
     use skelight_development;
     
@@ -163,6 +186,18 @@ Calculating the sentiment of the tweets
         {'$set': {score: nt.value.score}}
       );
     });
+
+3. Visualization
+----------------
+
+The last part of the assignment was to visualize the tweets and their sentiment. A deployed version of this app is available at http://skelight.herokuapp.com. Please be patient, it may take a few seconds to start up.
+
+The relevant code is located in the `app/` subfolders:
+
+- Javascript related stuff is in `app/assets/javascript/`
+- the HTML is in `app/views/welcome/index.html.erb`
+
+To access the database this project uses [MongoMapper](http://mongomapper.com).
 
 Appendix
 --------
